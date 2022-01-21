@@ -295,20 +295,6 @@ export default function JobOrder() {
             console.log(res);
             if (res.data.isSuccess) {
                 history.push(`/manufacturings/componentIssue/${res.data.document.id}?mode=edit`);
-
-                // update Component Products on JobOrder done
-                // try {
-                //     const r = await ApiService.patch(`/jobOrder/updateComponentProducts`, res?.data?.document)
-
-                // } catch (err) {
-                //     Swal.fire({
-                //         position: 'top',
-                //         title: err,
-                //         showConfirmButton: false,
-                //         timer: 6000
-                //     })
-                // }
-
             }
 
         } catch (err) {
@@ -349,10 +335,6 @@ export default function JobOrder() {
             console.log("totalQty when one or more CJO :", totalQty);
         }
 
-        // let totalCIQty = componentIssueList?.reduce((previousValue, currentValue) => {
-        //     return previousValue + currentValue.quantity;
-        // }, 0);
-        // console.log("totalCIQty: ", totalCIQty);
         if (totalQty == 0) {
             Swal.fire({
                 position: 'top',
@@ -370,6 +352,18 @@ export default function JobOrder() {
                     const completeJobOrder = await ApiService.post(`completeJobOrder/procedure`, { state: state, qty: totalQty });
                     if (completeJobOrder.data.isSuccess) {
                         history.push(`/manufacturings/completeJobOrder/${completeJobOrder.data.document.id}?mode=edit`)
+
+                        // Check total CJO qty is = JO qty or not. If yes then update JO status to "Complete"
+                        const CompleteJobOrders = await ApiService.get('jobOrder/findCompleteJobOrders/' + id);
+                        if (CompleteJobOrders.data.isSuccess) {
+                            const tCJOqty = CompleteJobOrders?.data.documents.reduce((previousValue, currentValue) => {
+                                return previousValue + currentValue.quantity;
+                            }, 0);
+
+                            if (tCJOqty == state?.quantity) {
+                                await ApiService.patch(`jobOrder/${id}`, { status: "Complete" })
+                            }
+                        }
                     }
                 } catch (err) {
                     console.log(err);
@@ -877,9 +871,9 @@ export default function JobOrder() {
                                                     <th style={{ minWidth: "16rem" }}>Work Center</th>
                                                     <th style={{ minWidth: "16rem" }}>Cost Per Minute</th>
                                                     <th style={{ minWidth: "16rem" }}>Account</th>
-                                                    <th style={{ minWidth: "10rem" }}>Start Date</th>
-                                                    <th style={{ minWidth: "10rem" }}>Start Date(factual)</th>
-                                                    <th style={{ minWidth: "10rem" }}>End Date</th>
+                                                    <th style={{ minWidth: "13rem" }}>Start Date</th>
+                                                    <th style={{ minWidth: "13rem" }}>Operation Start Date</th>
+                                                    <th style={{ minWidth: "13rem" }}>End Date</th>
                                                     <th style={{ minWidth: "10rem" }}>Expected Duration</th>
                                                     <th style={{ minWidth: "10rem" }}>Real Duration</th>
                                                     {!isAddMode && <th style={{ minWidth: "16rem" }}>Qty done</th>}
@@ -1157,7 +1151,7 @@ export default function JobOrder() {
                                                                         showCancelButton: true
                                                                     }).then(async (result) => {
                                                                         console.log("Result: " + result.value);
-                                                                        if (result.value) {
+                                                                        if (parseInt(result.value) + parseInt(getValues(`operations.${index}.qtyDone`)) <= state?.quantity) {
                                                                             if (parseInt(result.value) > parseInt(state.quantity)) {
                                                                                 Swal.fire({
                                                                                     position: 'top',
@@ -1272,6 +1266,13 @@ export default function JobOrder() {
                                                                             Swal.fire({
                                                                                 position: 'top',
                                                                                 title: `Please enter some value`,
+                                                                                showConfirmButton: false,
+                                                                                timer: 3000
+                                                                            })
+                                                                        } else {
+                                                                            Swal.fire({
+                                                                                position: 'top',
+                                                                                title: `Given value should be less then or equal to order quantity`,
                                                                                 showConfirmButton: false,
                                                                                 timer: 3000
                                                                             })
