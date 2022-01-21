@@ -1239,31 +1239,31 @@ export default function JobOrder() {
 
                                                                                     // Update startTimeForJC
                                                                                     // setValue(`operations.${index}.startTimeForJC`, d.split(",")[1].split(" ")[1])
-                                                                                    setValue(`operations.${index}.startTimeForJC`, String(d))
-                                                                                    setValue(`operations.${index}.startDateTimeForJC`, String(d))
-                                                                                    const alldata = getValues();
-                                                                                    console.log(alldata);
-                                                                                    try {
-                                                                                        await ApiService.patch(`/jobOrder/${id}`, alldata).then(async response => {
+                                                                                    // setValue(`operations.${index}.startTimeForJC`, String(d))
+                                                                                    // setValue(`operations.${index}.startDateTimeForJC`, String(d))
+                                                                                    // const alldata = getValues();
+                                                                                    // console.log(alldata);
+                                                                                    // try {
+                                                                                    //     await ApiService.patch(`/jobOrder/${id}`, alldata).then(async response => {
 
-                                                                                        }).catch(e => {
-                                                                                            console.log(e);
-                                                                                            Swal.fire({
-                                                                                                position: 'top',
-                                                                                                title: e,
-                                                                                                showConfirmButton: false,
-                                                                                                timer: 7000
-                                                                                            })
-                                                                                        })
-                                                                                    } catch (err) {
-                                                                                        console.log(err);
-                                                                                        Swal.fire({
-                                                                                            position: 'top',
-                                                                                            title: err,
-                                                                                            showConfirmButton: false,
-                                                                                            timer: 7000
-                                                                                        })
-                                                                                    }
+                                                                                    //     }).catch(e => {
+                                                                                    //         console.log(e);
+                                                                                    //         Swal.fire({
+                                                                                    //             position: 'top',
+                                                                                    //             title: e,
+                                                                                    //             showConfirmButton: false,
+                                                                                    //             timer: 7000
+                                                                                    //         })
+                                                                                    //     })
+                                                                                    // } catch (err) {
+                                                                                    //     console.log(err);
+                                                                                    //     Swal.fire({
+                                                                                    //         position: 'top',
+                                                                                    //         title: err,
+                                                                                    //         showConfirmButton: false,
+                                                                                    //         timer: 7000
+                                                                                    //     })
+                                                                                    // }
 
                                                                                 }
 

@@ -800,194 +800,186 @@ const SalesOrderPDF = {
         if (response.data.isSuccess) {
           console.log(salesOrderId);
           const salesOrder = response.data.document;
-          ApiService.get("customer/" + salesOrder.customer).then((res) => {
-            if (res.data.isSuccess) {
-              let products = new Array();
-              var doc = new jsPDF("p", "pt", "a4");
-              //header color
-              doc.setDrawColor(0);
-              doc.setFillColor(255, 255, 255);
-              doc.rect(0, 0, 700, 40, "F");
-              doc.setFontSize(12);
-              doc.text("Date:", 430, 90);
-              doc.text(`${salesOrder.date?.slice(0, 10)}`, 460, 90);
-              doc.text("Delivery Date:", 380, 110);
-              doc.text(`${salesOrder.deliveryDate?.slice(0, 10)}`, 460, 110);
-              // doc.rect(460, 62, 90, 15);
-              doc.setFontSize(17);
-              doc.setFont("bold");
-              // doc.text("PO#:", 430, 95);
-              //POO number
-              doc.text(`${salesOrder.name}`, 460, 70);
-              // doc.rect(460, 77, 90, 15);
+          // ApiService.get("customer/" + salesOrder.customer).then((res) => {
+          //   if (res.data.isSuccess) {
+          let products = new Array();
+          var doc = new jsPDF("p", "pt", "a4");
+          //header color
+          doc.setDrawColor(0);
+          doc.setFillColor(255, 255, 255);
+          doc.rect(0, 0, 700, 40, "F");
+          doc.setFontSize(12);
+          doc.text("Date:", 430, 90);
+          doc.text(`${salesOrder.date?.slice(0, 10)}`, 460, 90);
+          doc.text("Delivery Date:", 380, 110);
+          doc.text(`${salesOrder.deliveryDate?.slice(0, 10)}`, 460, 110);
+          // doc.rect(460, 62, 90, 15);
+          doc.setFontSize(17);
+          doc.setFont("bold");
+          // doc.text("PO#:", 430, 95);
+          //POO number
+          doc.text(`${salesOrder.name}`, 460, 70);
+          // doc.rect(460, 77, 90, 15);
 
-              doc.setFontSize(22);
-              // doc.setFont("times", "italic");
-              doc.text("Company:", 40, 70);
-              // doc.line(40, 68, 90, 68)
-              doc.setFontSize(17);
-              doc.text(`PBTI`, 138, 70);
+          doc.setFontSize(22);
+          // doc.setFont("times", "italic");
+          doc.text("Company:", 40, 70);
+          // doc.line(40, 68, 90, 68)
+          doc.setFontSize(17);
+          doc.text(`PBTI`, 138, 70);
 
-              doc.setFontSize(12);
-              doc.text("Address:", 40, 90);
-              doc.setFontSize(9);
-              doc.text(
-                "\nWebel Software, Ground Floor, \nDN Block, Sector V, \nWest Bengal 700091",
-                90,
-                80
-              );
+          doc.setFontSize(12);
+          doc.text("Address:", 40, 90);
+          doc.setFontSize(9);
+          doc.text(
+            "\nWebel Software, Ground Floor, \nDN Block, Sector V, \nWest Bengal 700091",
+            90,
+            80
+          );
 
-              doc.setFontSize(12);
-              doc.text("Phone:", 40, 140);
-              doc.setFontSize(9);
-              doc.text("8282822924", 80, 140);
-              doc.setFontSize(12);
-              doc.text("Website:", 40, 160);
-              doc.setFontSize(9);
-              doc.text("www.paapri.com", 90, 160);
-              // doc.text("Website:", 40, 200);
-              doc.setDrawColor(255, 0, 0);
-              doc.setFillColor(230, 230, 230);
-              doc.rect(40, 175, 200, 20, "F");
-              doc.setFontSize(12);
-              doc.setTextColor(0, 0, 0);
-              doc.text("Customer Name:", 45, 190);
-              doc.setTextColor(0, 0, 0);
-              // doc.text("Name & Address:", 43, 210);
-              doc.text(`${res.data.document.name}`, 47, 220);
+          doc.setFontSize(12);
+          doc.text("Phone:", 40, 140);
+          doc.setFontSize(9);
+          doc.text("8282822924", 80, 140);
+          doc.setFontSize(12);
+          doc.text("Website:", 40, 160);
+          doc.setFontSize(9);
+          doc.text("www.paapri.com", 90, 160);
+          // doc.text("Website:", 40, 200);
+          doc.setDrawColor(255, 0, 0);
+          doc.setFillColor(230, 230, 230);
+          doc.rect(40, 175, 200, 20, "F");
+          doc.setFontSize(12);
+          doc.setTextColor(0, 0, 0);
+          doc.text("Customer Name:", 45, 190);
+          doc.setTextColor(0, 0, 0);
+          // doc.text("Name & Address:", 43, 210);
+          doc.text(`${salesOrder.customer[0].name}`, 47, 220);
 
-              // doc.setFontSize(9);
-              // doc.text(`${salesOrder}`, 43, 220);
-              // doc.text(`${salesOrder.bilingAddress}`, 43, 230);
-              doc.setDrawColor(255, 0, 0);
-              doc.setFillColor(230, 230, 230);
-              doc.rect(355, 175, 200, 20, "F");
-              doc.setFontSize(12);
-              doc.setTextColor(0, 0, 0);
-              doc.text("Ship To:", 360, 190);
-              doc.setTextColor(0, 0, 0);
-              // doc.text("Name & Address:", 358, 210);
-              doc.setFontSize(9);
-              doc.setTextColor(0, 0, 0);
-              // doc.text(`${salesOrder.customerName}`, 400, 220);
-              doc.text(`${salesOrder.shippingAddress}`, 358, 230);
-              doc.setFontSize(30);
-              doc.setFont("Sans-serif");
-              doc.setTextColor(0, 0, 0);
-              doc.text("Sales Order", 215, 40);
-              let height = 200;
+          // doc.setFontSize(9);
+          // doc.text(`${salesOrder}`, 43, 220);
+          // doc.text(`${salesOrder.bilingAddress}`, 43, 230);
+          doc.setDrawColor(255, 0, 0);
+          doc.setFillColor(230, 230, 230);
+          doc.rect(355, 175, 200, 20, "F");
+          doc.setFontSize(12);
+          doc.setTextColor(0, 0, 0);
+          doc.text("Ship To:", 360, 190);
+          doc.setTextColor(0, 0, 0);
+          // doc.text("Name & Address:", 358, 210);
+          doc.setFontSize(9);
+          doc.setTextColor(0, 0, 0);
+          // doc.text(`${salesOrder.customerName}`, 400, 220);
+          doc.text(`${salesOrder.shippingAddress}`, 358, 230);
+          doc.setFontSize(30);
+          doc.setFont("Sans-serif");
+          doc.setTextColor(0, 0, 0);
+          doc.text("Sales Order", 215, 40);
+          let height = 200;
 
-              // Restructure line items
-              let array = new Array();
-              salesOrder?.products.map(async (e) => {
-                let obj = new Object();
+          // Restructure line items
+          let array = new Array();
+          salesOrder?.products.map(async (e) => {
+            let obj = new Object();
 
-                obj.name = e.name;
-                obj.description = e.description;
-                obj.quantity = e.quantity;
-                obj.delivered = e.delivered;
-                obj.invoiced = e.invoiced;
-                obj.unitPrice = e.unitPrice.toFixed(2);
-                obj.taxes = e.taxes + "%";
-                obj.subTotal = e.subTotal.toFixed(2);
-                array.push(obj);
-              });
-              console.log(salesOrder?.products);
-              console.log(array);
-
-              // Create the table of products data
-              doc.autoTable({
-                margin: { top: 280 },
-                styles: {
-                  lineColor: [153, 153, 153],
-                  lineWidth: 1,
-                  fillColor: [179, 179, 179],
-                },
-                columnStyles: {
-                  europe: { halign: "center" },
-                  0: { cellWidth: 88 },
-                  1: { cellWidth: 100, halign: "center" },
-                  2: { cellWidth: 50, halign: "center" },
-                  3: { cellWidth: 57, halign: "left" },
-                  4: { cellWidth: 65 },
-                  5: { cellWidth: 65, halign: "right" },
-                  6: { cellWidth: 57, halign: "right" },
-                  7: { cellWidth: 65, halign: "right" },
-
-                  // 6: { cellWidth: 65, halign: 'right' },
-                  // 7: { cellWidth: 65, halign: 'right' },
-                }, // European countries centered
-                // body: salesOrder.products,
-                body: array,
-                columns: [
-                  { header: "Product", dataKey: "name" },
-                  { header: "Description", dataKey: "description" },
-                  {
-                    header: "Qty",
-                    dataKey: "quantity",
-                    halign: "center",
-                    valign: "center",
-                  },
-                  { header: "Delivered", dataKey: "delivered" },
-                  { header: "Invoiced", dataKey: "invoiced", halign: "center" },
-                  {
-                    header: "Unit Rate",
-                    dataKey: "unitPrice",
-                    halign: "center",
-                  },
-                  { header: "Taxes(%)", dataKey: "taxes", halign: "right" },
-                  {
-                    header: "Amount",
-                    dataKey: "subTotal",
-                    halign: "center",
-                  },
-                ],
-                didDrawPage: (d) => (height = d.cursor.y), // calculate height of the autotable dynamically
-              });
-
-              let h = height + 30;
-
-              doc.setTextColor(0, 0, 0);
-              doc.setFontSize(10);
-              // doc.text("Subtotal:", 490, h);
-              // doc.text(
-              //   `${(
-              //     salesOrder?.estimation?.total -
-              //     (salesOrder?.estimation?.cgst + salesOrder?.estimation?.sgst)
-              //   ).toFixed(2)}`,
-              //   490,
-              //   h
-              // );
-              doc.text("CGST:", 460, h);
-              doc.text(`${salesOrder.estimation?.cgst.toFixed(2)}`, 490, h);
-              doc.text("SGST:", 460, h + 10);
-              doc.text(
-                `${salesOrder.estimation?.sgst.toFixed(2)}`,
-                490,
-                h + 10
-              );
-              // doc.text("IGST:", 460, h + 20);
-              // doc.text(`${salesOrder.estimation?.igst}`, 490, h + 20);
-              doc.line(460, h + 30, 500, h + 30);
-
-              doc.setTextColor(0, 0, 0);
-              doc.setFontSize(12);
-              doc.text("Total:", 460, h + 45);
-              doc.text(
-                `${salesOrder.estimation?.total.toFixed(2)}`,
-                490,
-                h + 45
-              );
-              const pageCount = doc.internal.getNumberOfPages();
-
-              doc.text(`${pageCount}`, 300, 820);
-              doc.save(`Sales Order - ${salesOrder.name}.pdf`);
-            } else {
-              console.log(
-                "Something went wrong while generating purchase order pdf"
-              );
-            }
+            obj.name = e.product[0].name;
+            obj.description = e.description;
+            obj.quantity = e.quantity;
+            obj.delivered = e.delivered;
+            obj.invoiced = e.invoiced;
+            obj.unitPrice = e.unitPrice.toFixed(2);
+            obj.taxes = e.taxes + "%";
+            obj.subTotal = e.subTotal.toFixed(2);
+            array.push(obj);
           });
+          console.log(salesOrder?.products);
+          console.log(array);
+
+          // Create the table of products data
+          doc.autoTable({
+            margin: { top: 280 },
+            styles: {
+              lineColor: [153, 153, 153],
+              lineWidth: 1,
+              fillColor: [179, 179, 179],
+            },
+            columnStyles: {
+              europe: { halign: "center" },
+              0: { cellWidth: 88 },
+              1: { cellWidth: 100, halign: "center" },
+              2: { cellWidth: 50, halign: "center" },
+              3: { cellWidth: 57, halign: "left" },
+              4: { cellWidth: 65 },
+              5: { cellWidth: 65, halign: "right" },
+              6: { cellWidth: 57, halign: "right" },
+              7: { cellWidth: 65, halign: "right" },
+
+              // 6: { cellWidth: 65, halign: 'right' },
+              // 7: { cellWidth: 65, halign: 'right' },
+            }, // European countries centered
+            // body: salesOrder.products,
+            body: array,
+            columns: [
+              { header: "Product", dataKey: "name" },
+              { header: "Description", dataKey: "description" },
+              {
+                header: "Qty",
+                dataKey: "quantity",
+                halign: "center",
+                valign: "center",
+              },
+              { header: "Delivered", dataKey: "delivered" },
+              { header: "Invoiced", dataKey: "invoiced", halign: "center" },
+              {
+                header: "Unit Rate",
+                dataKey: "unitPrice",
+                halign: "center",
+              },
+              { header: "Taxes(%)", dataKey: "taxes", halign: "right" },
+              {
+                header: "Amount",
+                dataKey: "subTotal",
+                halign: "center",
+              },
+            ],
+            didDrawPage: (d) => (height = d.cursor.y), // calculate height of the autotable dynamically
+          });
+
+          let h = height + 30;
+
+          doc.setTextColor(0, 0, 0);
+          doc.setFontSize(10);
+          // doc.text("Subtotal:", 490, h);
+          // doc.text(
+          //   `${(
+          //     salesOrder?.estimation?.total -
+          //     (salesOrder?.estimation?.cgst + salesOrder?.estimation?.sgst)
+          //   ).toFixed(2)}`,
+          //   490,
+          //   h
+          // );
+          doc.text("CGST:", 460, h);
+          doc.text(`${salesOrder.estimation?.cgst.toFixed(2)}`, 490, h);
+          doc.text("SGST:", 460, h + 10);
+          doc.text(`${salesOrder.estimation?.sgst.toFixed(2)}`, 490, h + 10);
+          // doc.text("IGST:", 460, h + 20);
+          // doc.text(`${salesOrder.estimation?.igst}`, 490, h + 20);
+          doc.line(460, h + 30, 500, h + 30);
+
+          doc.setTextColor(0, 0, 0);
+          doc.setFontSize(12);
+          doc.text("Total:", 460, h + 45);
+          doc.text(`${salesOrder.estimation?.total.toFixed(2)}`, 490, h + 45);
+          const pageCount = doc.internal.getNumberOfPages();
+
+          doc.text(`${pageCount}`, 300, 820);
+          doc.save(`Sales Order - ${salesOrder.name}.pdf`);
+          // } else {
+          //   console.log(
+          //     "Something went wrong while generating purchase order pdf"
+          //   );
+          // }
+          // });
         } else {
           console.log(
             "Something went wrong while generating purchase order pdf"
