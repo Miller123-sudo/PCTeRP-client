@@ -873,7 +873,7 @@ export default function JobOrder() {
                                         <Table responsive striped bordered hover size="sm">
                                             <thead>
                                                 <tr>
-                                                    <th style={{ minWidth: "16rem" }}>Operation</th>
+                                                    <th style={{ minWidth: "16rem" }}>Operation(dev)</th>
                                                     <th style={{ minWidth: "16rem" }}>Work Center</th>
                                                     <th style={{ minWidth: "16rem" }}>Cost Per Minute</th>
                                                     <th style={{ minWidth: "16rem" }}>Account</th>
