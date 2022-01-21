@@ -37,7 +37,7 @@ export default function JobOrderList() {
                     <Button style={{ minWidth: "4rem" }} size="sm" as={Link} to={`/manufacturings/joborder/${params.value}?mode=view`}><BsEyeFill /></Button>
                 </>
         },
-        { headerName: 'Document NO.', field: 'name' },
+        { headerName: 'Document Id', field: 'name' },
         { headerName: 'Product', field: 'product', valueGetter: (params) => params.data?.product ? params.data?.product[0].name : "Not Available" },
         { headerName: 'BOM', field: 'BOM', valueGetter: (params) => params.data?.bom ? params.data?.bom[0].name : "Not Available" },
         { headerName: 'Notes', field: 'notes' },

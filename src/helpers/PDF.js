@@ -439,7 +439,7 @@ const PurchaseOrderPDF = {
       .then((response) => {
         if (response.data.isSuccess) {
           const purchaseOrder = response.data.document;
-          ApiService.get("vendor/" + purchaseOrder.vendor).then((res) => {
+          ApiService.get("vendor/" + purchaseOrder.vendor[0].id).then((res) => {
             if (res.data.isSuccess) {
               let products = new Array();
               var doc = new jsPDF("p", "pt", "a4");
@@ -522,7 +522,7 @@ const PurchaseOrderPDF = {
               purchaseOrder?.products?.map((e) => {
                 let obj = new Object();
 
-                obj.name = e.name;
+                obj.name = e.product[0].name;
                 obj.description = e.description;
                 obj.quantity = e.quantity;
                 obj.unitPrice = e.unitPrice.toFixed(2);

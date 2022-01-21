@@ -43,7 +43,7 @@ export default function CompleteJobOrderList({ data }) {
         { headerName: 'Qty', field: 'quantity' },
         { headerName: 'BOM', field: 'BOM', valueGetter: (params) => params.data?.bom ? params.data?.bom[0].name : "Not Available" },
         { headerName: 'Created Date', field: 'scheduledDate', valueGetter: (params) => params.data?.scheduledDate ? moment(params.data?.scheduledDate).format("DD/MM/YYYY HH:mm:ss") : "Not Available" },
-        { headerName: 'Status', field: 'status', cellRendererFramework: (params) => (renderStatus(params.value)) },
+        // { headerName: 'Status', field: 'status', cellRendererFramework: (params) => (renderStatus(params.value)) },
 
     ]
 
