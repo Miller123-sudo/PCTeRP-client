@@ -878,6 +878,7 @@ export default function JobOrder() {
                                                     <th style={{ minWidth: "16rem" }}>Cost Per Minute</th>
                                                     <th style={{ minWidth: "16rem" }}>Account</th>
                                                     <th style={{ minWidth: "10rem" }}>Start Date</th>
+                                                    <th style={{ minWidth: "10rem" }}>Start Date(factual)</th>
                                                     <th style={{ minWidth: "10rem" }}>End Date</th>
                                                     <th style={{ minWidth: "10rem" }}>Expected Duration</th>
                                                     <th style={{ minWidth: "10rem" }}>Real Duration</th>
@@ -964,6 +965,13 @@ export default function JobOrder() {
                                                         <td>
                                                             <Form.Group>
                                                                 <Form.Control disabled type="text" id="startDate" name="startDate" {...register(`operations.${index}.startDate`)}>
+                                                                </Form.Control>
+                                                            </Form.Group>
+                                                        </td>
+
+                                                        <td>
+                                                            <Form.Group>
+                                                                <Form.Control disabled type="text" id="startDateTimeForJC" name="startDateTimeForJC" {...register(`operations.${index}.startDateTimeForJC`)}>
                                                                 </Form.Control>
                                                             </Form.Group>
                                                         </td>
