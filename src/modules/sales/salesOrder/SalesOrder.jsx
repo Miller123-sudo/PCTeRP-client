@@ -591,17 +591,17 @@ export default function SalesOrder() {
                                                                                     console.log(value);
                                                                                     // const product = await ApiService.get('product/' + e.target.value);
                                                                                     // console.log(product);
-                                                                                    setValue(`products.${index}.account`, e[0]?.assetAccount);
+                                                                                    setValue(`products.${index}.account`, value[0]?.assetAccount);
                                                                                     setValue(`products.${index}.quantity`, 1);
-                                                                                    setValue(`products.${index}.product[0].id`, e[0]?.id);
-                                                                                    setValue(`products.${index}.product[0].name`, e[0]?.name);
-                                                                                    setValue(`products.${index}.description`, e[0]?.description);
-                                                                                    setValue(`products.${index}.unitPrice`, e[0]?.salesPrice);
-                                                                                    setValue(`products.${index}.unit`, e[0]?.uom);
-                                                                                    setValue(`products.${index}.taxes`, e[0]?.igstRate);
-                                                                                    setValue(`products.${index}.cgstRate`, e[0]?.cgstRate);
-                                                                                    setValue(`products.${index}.sgstRate`, e[0]?.sgstRate);
-                                                                                    setValue(`products.${index}.igstRate`, e[0]?.igstRate);
+                                                                                    setValue(`products.${index}.product[0].id`, value[0]?.id);
+                                                                                    setValue(`products.${index}.product[0].name`, value[0]?.name);
+                                                                                    setValue(`products.${index}.description`, value[0]?.description);
+                                                                                    setValue(`products.${index}.unitPrice`, value[0]?.salesPrice);
+                                                                                    setValue(`products.${index}.unit`, value[0]?.uom);
+                                                                                    setValue(`products.${index}.taxes`, value[0]?.igstRate);
+                                                                                    setValue(`products.${index}.cgstRate`, value[0]?.cgstRate);
+                                                                                    setValue(`products.${index}.sgstRate`, value[0]?.sgstRate);
+                                                                                    setValue(`products.${index}.igstRate`, value[0]?.igstRate);
 
                                                                                     const values = getValues([`products.${index}.unitPrice`, `products.${index}.quantity`]);
                                                                                     setValue(`products.${index}.subTotal`, parseFloat(parseFloat(values[0]) * parseInt(values[1])).toFixed(2));

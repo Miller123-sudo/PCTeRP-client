@@ -1,9 +1,10 @@
 import { React, useState, useEffect } from 'react'
 import { useHistory, useParams } from 'react-router';
-import { useForm, useFieldArray } from 'react-hook-form';
+import { useForm, useFieldArray, Controller } from 'react-hook-form';
 import jsPDF from 'jspdf';
 import { Container, Form, Row, Tabs, Tab, Card, Breadcrumb, Table, Button, Col, ButtonGroup, DropdownButton, Dropdown, Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { Typeahead } from 'react-bootstrap-typeahead';
 import { PropagateLoader } from "react-spinners";
 import ApiService from '../../../helpers/ApiServices';
 import { formatNumber } from '../../../helpers/Utils';
@@ -347,12 +348,32 @@ export default function Invoice() {
                             </Form.Group>
                             <Form.Group as={Col} md="4" className="mb-2">
                                 <Form.Label className="m-0">Customer</Form.Label>
-                                <Form.Select id="customer" name="customer" {...register("customer")}>
+                                <Controller
+                                    name="customer"
+                                    control={control}
+                                    defaultValue=""
+                                    render={({ field: { onChange, value }, fieldState: { error } }) =>
+
+                                    (
+                                        <Typeahead
+                                            id="customer"
+                                            // labelKey="name"
+                                            labelKey='name'
+                                            // multiple
+                                            onChange={onChange}
+                                            options={customerList}
+                                            placeholder="Choose a customer..."
+                                            selected={value}
+                                        />
+                                    )
+                                    }
+                                />
+                                {/* <Form.Select id="customer" name="customer" {...register("customer")}>
                                     <option value={null}>Choose..</option>
                                     {customerList && customerList.map((element, index) => {
                                         return <option key={index} value={element.id}>{element.name}</option>
                                     })}
-                                </Form.Select>
+                                </Form.Select> */}
                             </Form.Group>
                             <Form.Group as={Col} md="4" className="mb-2">
                                 <Form.Label className="m-0">Invoice Date</Form.Label>
@@ -402,12 +423,31 @@ export default function Invoice() {
                                                     return (<tr key={field.id}>
                                                         <td>
                                                             <Form.Group>
-                                                                <Form.Select disabled id="product" name="product" {...register(`invoiceLines.${index}.product`)}>
+                                                                <Controller
+                                                                    name={`invoiceLines.${index}.product`}
+                                                                    control={control}
+                                                                    defaultValue=""
+                                                                    render={({ field: { onChange, value }, fieldState: { error } }) =>
+                                                                    (
+                                                                        <Typeahead
+                                                                            id="product"
+                                                                            // labelKey="name"
+                                                                            labelKey='name'
+                                                                            disabled
+                                                                            onChange={onChange}
+                                                                            options={productList}
+                                                                            placeholder="Choose a product..."
+                                                                            selected={value}
+                                                                        />
+                                                                    )
+                                                                    }
+                                                                />
+                                                                {/* <Form.Select disabled id="product" name="product" {...register(`invoiceLines.${index}.product`)}>
 
                                                                     {productList.map(element => {
                                                                         return <option key={element.id} value={element.id}>{element.name}</option>
                                                                     })}
-                                                                </Form.Select>
+                                                                </Form.Select> */}
                                                                 {/* <Form.Control as="select" id="item" {...register(`items.${index}.item`)}
                                                                 onChange={async (e) => {
                                                                     const item = await ApiService.get('item/' + e.target.value);
